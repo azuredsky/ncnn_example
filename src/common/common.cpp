@@ -125,7 +125,7 @@ float CalculSimilarity(const std::vector<float>&feature1, const std::vector<floa
 	float feature_norm1 = 0.0f;
 	float feature_norm2 = 0.0f;
 #if defined(_OPENMP)
-#pragma omp parallel for num_threads(threads_num)
+#pragma omp parallel for num_threads(threads_num) reduction(+:inner_product) reduction(+:feature_norm1) reduction(+:feature_norm2)
 #endif
 	for(int i = 0; i < kFaceFeatureDim; ++i) {
 		inner_product += feature1[i] * feature2[i];
